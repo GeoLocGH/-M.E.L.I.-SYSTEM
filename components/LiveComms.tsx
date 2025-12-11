@@ -140,6 +140,7 @@ const LiveComms: React.FC<LiveCommsProps> = ({ addLog }) => {
     // DOM Refs for direct style updates (High Performance)
     const inputMeterRef = useRef<HTMLDivElement>(null);
     const outputMeterRef = useRef<HTMLDivElement>(null);
+    const pulseOverlayRef = useRef<HTMLDivElement>(null);
 
     // Visualizer State
     const particlesRef = useRef<Particle[]>([]);
@@ -259,9 +260,10 @@ const LiveComms: React.FC<LiveCommsProps> = ({ addLog }) => {
             ctx?.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
         }
         
-        // Reset meters
+        // Reset meters and pulse
         if (inputMeterRef.current) inputMeterRef.current.style.width = '0%';
         if (outputMeterRef.current) outputMeterRef.current.style.width = '0%';
+        if (pulseOverlayRef.current) pulseOverlayRef.current.style.boxShadow = 'none';
     };
 
     // --- Audio Capture Logic (WAV) ---
@@ -793,6 +795,16 @@ const LiveComms: React.FC<LiveCommsProps> = ({ addLog }) => {
             ctx.restore();
             ctx.restore();
 
+             // --- 3. DOM PULSE SYNC ---
+            if (pulseOverlayRef.current) {
+                const pulseMetric = bassVol * 1.5; // Amplify slightly
+                const rgb = isOutput ? '192, 132, 252' : '0, 255, 242'; // Light Purple : Cyan
+                const opacity = 0.05 + (pulseMetric * 0.4);
+                const spread = 50 + (pulseMetric * 400);
+                
+                pulseOverlayRef.current.style.boxShadow = `inset 0 0 ${spread}px rgba(${rgb}, ${opacity})`;
+            }
+
             animationFrameRef.current = requestAnimationFrame(render);
         };
         render();
@@ -1161,6 +1173,12 @@ const LiveComms: React.FC<LiveCommsProps> = ({ addLog }) => {
                     className="w-full h-full object-cover" 
                 />
             </div>
+            
+            {/* PULSE OVERLAY LAYER */}
+            <div 
+                ref={pulseOverlayRef}
+                className="absolute inset-0 z-0 pointer-events-none transition-colors duration-75 border-[0px] border-transparent"
+            ></div>
 
             {/* Controls & Indicators Area - FLOATING ON TOP */}
             <div className="relative z-10 mt-auto mb-20 flex flex-col items-center gap-6">
