@@ -1,0 +1,9 @@
+{
+  "name": "MELI SYSTEM",
+  "description": "M.E.L.I. is Multimodal Efficient Logistical Interface for intelligence. A high-performance operations platform for data analysis, surveillance tracking, and generative verification.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}

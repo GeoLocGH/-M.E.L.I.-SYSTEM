@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MELI - Multimodal Efficient Logistical Interface</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&family=Inter:wght@300..900&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
+            colors: {
+              ops: {
+                950: 'rgb(var(--ops-950) / <alpha-value>)', 
+                900: 'rgb(var(--ops-900) / <alpha-value>)', 
+                800: 'rgb(var(--ops-800) / <alpha-value>)', 
+                500: 'rgb(var(--ops-500) / <alpha-value>)', 
+                400: 'rgb(var(--ops-400) / <alpha-value>)', 
+                accent: 'rgb(var(--ops-accent) / <alpha-value>)', 
+                alert: 'rgb(var(--ops-alert) / <alpha-value>)', 
+                warn: 'rgb(var(--ops-warn) / <alpha-value>)',
+                // Semantic Text Colors
+                'text-main': 'rgb(var(--ops-text-main) / <alpha-value>)',
+                'text-dim': 'rgb(var(--ops-text-dim) / <alpha-value>)',
+                'text-on-accent': 'rgb(var(--ops-text-on-accent) / <alpha-value>)',
+              }
+            },
+            animation: {
+              'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'scanline': 'scanline 8s linear infinite',
+              'spin-slow': 'spin 20s linear infinite',
+            },
+            keyframes: {
+              scanline: {
+                '0%': { transform: 'translateY(-100%)' },
+                '100%': { transform: 'translateY(100%)' }
+              }
+            },
+            backgroundImage: {
+              'grid-pattern': "linear-gradient(to right, rgb(var(--ops-800) / 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgb(var(--ops-800) / 0.1) 1px, transparent 1px)",
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      :root {
+        /* M.E.L. Theme: Pure Black, Dark Greys, Electric Cyan */
+        --ops-950: 0 0 0;        /* Pure Black background */
+        --ops-900: 10 10 10;     /* Panel background */
+        --ops-800: 38 38 38;     /* Borders */
+        --ops-500: 0 180 216;    /* Secondary Blue */
+        --ops-400: 147 197 253;  /* Light Blue */
+        --ops-accent: 0 255 242; /* Electric Cyan (M.E.L. signature) */
+        --ops-alert: 255 50 50;  /* Bright Red */
+        --ops-warn: 255 190 0;   /* Amber */
+        
+        --ops-text-main: 240 240 240; 
+        --ops-text-dim: 115 115 115;
+        --ops-text-on-accent: 0 0 0;
+      }
+
+      .light-theme {
+        /* Inverted High Contrast Tactical */
+        --ops-950: 240 240 240;
+        --ops-900: 255 255 255;
+        --ops-800: 200 200 200;
+        --ops-500: 0 100 200;
+        --ops-400: 50 150 250;
+        --ops-accent: 0 180 180;
+        
+        --ops-text-main: 10 10 10;
+        --ops-text-dim: 100 100 100;
+        --ops-text-on-accent: 255 255 255;
+      }
+
+      body {
+        background-color: rgb(var(--ops-950));
+        color: rgb(var(--ops-text-main));
+        transition: background-color 0.3s ease, color 0.3s ease;
+        font-family: 'Inter', sans-serif;
+      }
+      
+      /* Tech borders */
+      .tech-border {
+        position: relative;
+        border: 1px solid rgb(var(--ops-800));
+      }
+      .tech-border::after {
+        content: '';
+        position: absolute;
+        top: -1px; left: -1px;
+        width: 10px; height: 10px;
+        border-top: 2px solid rgb(var(--ops-accent));
+        border-left: 2px solid rgb(var(--ops-accent));
+      }
+      .tech-border::before {
+        content: '';
+        position: absolute;
+        bottom: -1px; right: -1px;
+        width: 10px; height: 10px;
+        border-bottom: 2px solid rgb(var(--ops-accent));
+        border-right: 2px solid rgb(var(--ops-accent));
+      }
+
+      /* Custom scrollbar for ops feel */
+      ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgb(var(--ops-800));
+        border-radius: 2px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgb(var(--ops-accent));
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.1/",
+    "react": "https://esm.sh/react@^19.2.1",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.1/",
+    "react-dom": "https://esm.sh/react-dom@^19.2.1",
+    "@google/genai": "https://esm.sh/@google/genai@^1.32.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.559.0",
+    "recharts": "https://esm.sh/recharts@2.12.7?external=react,react-dom"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
